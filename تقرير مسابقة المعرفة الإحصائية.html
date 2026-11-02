@@ -1,0 +1,667 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>تقرير مسابقة المعرفة الإحصائية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@300;400;600;700;800&display=swap">
+
+<style>
+/* ===== Tokens — green/teal identity (GASTAT) + deep navy, RTL ===== */
+:root {
+  --bg:          #ffffff;
+  --bg-alt:      #f3f8f6;
+  --bg-panel:    #eaf4ef;
+  --border:      #cce3da;
+  --fg:          #152e26;
+  --fg-muted:    #3d6b5c;
+  --fg-soft:     #6b9080;
+  --accent:      #0f7a56;
+  --accent-med:  #17a472;
+  --accent-lt:   #d6f0e7;
+  --teal:        #0a6447;
+  --gold:        #c47b1a;
+  --gold-dim:    #fdf3e0;
+  --navy:        #0d2b3e;
+  --r:           10px;
+  --sh:          0 2px 16px rgba(15,122,86,.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:          #0b1d18;
+    --bg-alt:      #112820;
+    --bg-panel:    #183326;
+    --border:      #253f34;
+    --fg:          #e2f4ed;
+    --fg-muted:    #88c8b0;
+    --fg-soft:     #5e9e86;
+    --accent:      #28c98a;
+    --accent-med:  #38dfa0;
+    --accent-lt:   #0d2e22;
+    --teal:        #1ab882;
+    --gold:        #e09030;
+    --gold-dim:    #251808;
+    --navy:        #b8d8f0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg:          #0b1d18;
+  --bg-alt:      #112820;
+  --bg-panel:    #183326;
+  --border:      #253f34;
+  --fg:          #e2f4ed;
+  --fg-muted:    #88c8b0;
+  --fg-soft:     #5e9e86;
+  --accent:      #28c98a;
+  --accent-med:  #38dfa0;
+  --accent-lt:   #0d2e22;
+  --teal:        #1ab882;
+  --gold:        #e09030;
+  --gold-dim:    #251808;
+  --navy:        #b8d8f0;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+  direction: rtl;
+  font-size: 14.5px;
+  line-height: 1.75;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-block: 40px 72px;
+}
+
+/* ===== COVER ===== */
+.cover {
+  background: linear-gradient(150deg, var(--teal) 0%, var(--accent) 55%, #22c48a 100%);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 36px;
+  position: relative;
+  color: #fff;
+}
+/* decorative grid pattern */
+.cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+/* big decorative number */
+.cover::after {
+  content: '65';
+  position: absolute;
+  left: -10px; bottom: -20px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 200px;
+  font-weight: 900;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cover-body {
+  position: relative; z-index: 1;
+  padding: 38px 44px 36px;
+}
+
+/* ministry badges */
+.cover-badges {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.badge {
+  border: 1.5px solid rgba(255,255,255,.4);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  background: rgba(255,255,255,.12);
+  white-space: nowrap;
+}
+
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  opacity: .75;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.cover-title {
+  font-family: 'Tajawal', sans-serif;
+  font-size: clamp(26px, 4.5vw, 44px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  text-wrap: balance;
+}
+.cover-school {
+  font-size: 15px;
+  font-weight: 600;
+  opacity: .88;
+  margin-bottom: 30px;
+}
+
+/* divider */
+.cover-divider {
+  height: 1px;
+  background: rgba(255,255,255,.22);
+  margin-bottom: 24px;
+}
+
+/* signature row */
+.cover-sig {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.sig-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 160px;
+}
+.sig-block.left { text-align: left; }
+.sig-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  opacity: .65;
+}
+.sig-name {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+.sig-role {
+  font-size: 11px;
+  opacity: .75;
+}
+
+/* ===== STATS ROW ===== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.stat-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 16px 18px;
+  text-align: center;
+  box-shadow: var(--sh);
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: 3px;
+  background: var(--accent);
+}
+.stat-card.gold-card::before { background: var(--gold); }
+.stat-val {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-card.gold-card .stat-val { color: var(--gold); }
+.stat-sub {
+  font-size: 11.5px;
+  color: var(--fg-muted);
+  font-weight: 600;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+/* ===== SECTION ===== */
+.sec { margin-bottom: 40px; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 20px;
+}
+.sec-bar { width: 4px; height: 22px; background: var(--accent); border-radius: 3px; flex-shrink: 0; }
+.sec-head h2 {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--fg);
+}
+.sec-num {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: .06em;
+  margin-right: 2px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 26px 28px;
+  box-shadow: var(--sh);
+  margin-bottom: 16px;
+}
+
+/* ===== INFO GRID ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.info-cell {
+  background: var(--bg-alt);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.info-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--fg-soft);
+  margin-bottom: 3px;
+}
+.info-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* ===== CALLOUT ===== */
+.callout {
+  background: var(--accent-lt);
+  border-right: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--fg);
+  margin-bottom: 16px;
+}
+.callout.callout-gold {
+  background: var(--gold-dim);
+  border-color: var(--gold);
+}
+
+/* ===== NAMES GRID ===== */
+.names-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 8px;
+}
+.name-pill {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.name-pill-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ===== ACHIEVEMENTS ===== */
+.ach-list { display: flex; flex-direction: column; gap: 12px; }
+.ach-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--bg-alt);
+  border-radius: 9px;
+  padding: 14px 16px;
+}
+.ach-icon {
+  width: 40px; height: 40px;
+  border-radius: 9px;
+  background: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+.ach-icon.g { background: var(--gold); }
+.ach-content { flex: 1; min-width: 0; }
+.ach-title { font-weight: 800; font-size: 13.5px; margin-bottom: 3px; }
+.ach-desc { font-size: 13px; color: var(--fg-muted); line-height: 1.6; }
+
+/* ===== RECOMMENDATIONS ===== */
+.rec-list { display: flex; flex-direction: column; gap: 10px; }
+.rec-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--bg-alt);
+  border-radius: 8px;
+  padding: 13px 16px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.rec-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== FOOTER ===== */
+.doc-footer {
+  margin-top: 52px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--fg-soft);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .cover-body { padding: 26px 20px 24px; }
+  .cover-title { font-size: 22px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .names-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .cover-sig { flex-direction: column; gap: 14px; }
+}
+</style>
+
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-body">
+      <div class="cover-badges">
+        <span class="badge">وزارة التعليم</span>
+        <span class="badge">الهيئة العامة للإحصاء</span>
+        <span class="badge">65 عامًا على تأسيس الهيئة</span>
+      </div>
+
+      <div class="cover-eyebrow">تقرير النشاط المدرسي — الفصل الأول 1448هـ</div>
+      <div class="cover-title">مسابقة المعرفة الإحصائية</div>
+      <div class="cover-school">المدرسة الابتدائية الثانية بالقاعدة الجوية وبرنامج التوحد</div>
+
+      <div class="cover-divider"></div>
+
+      <div class="cover-sig">
+        <!-- يمين: رائدة النشاط -->
+        <div class="sig-block">
+          <span class="sig-label">رائدة النشاط</span>
+          <span class="sig-name">أفراح الأسمري</span>
+          <span class="sig-role">رائدة النشاط الطلابي</span>
+        </div>
+
+        <!-- يسار: مديرة المدرسة -->
+        <div class="sig-block left">
+          <span class="sig-label">مديرة المدرسة</span>
+          <span class="sig-name">سميرة نشاء العصيمي</span>
+          <span class="sig-role">مديرة المدرسة الابتدائية الثانية</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-val">238</div>
+      <div class="stat-sub">إجمالي المشاركات</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">238</div>
+      <div class="stat-sub">شهادة مشاركة رسمية</div>
+    </div>
+    <div class="stat-card gold-card">
+      <div class="stat-val">100<span style="font-size:20px">%</span></div>
+      <div class="stat-sub">نسبة إتمام المسابقة</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">1</div>
+      <div class="stat-sub">مسابقة وطنية رسمية</div>
+    </div>
+  </div>
+
+  <!-- 1. عن المسابقة -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-bar"></div>
+      <h2><span class="sec-num">أولاً &nbsp;|&nbsp;</span> نبذة عن المسابقة</h2>
+    </div>
+    <div class="card">
+      <div class="callout">
+        تُعدّ <strong>مسابقة المعرفة الإحصائية</strong> مبادرةً وطنيةً مشتركةً بين <strong>الهيئة العامة للإحصاء</strong> و<strong>وزارة التعليم</strong>، أُطلقت بمناسبة مرور <strong>65 عامًا</strong> على تأسيس الهيئة، وتهدف إلى تنمية الوعي الإحصائي لدى الطلاب والطالبات وتعزيز ثقافة البيانات استنادًا إلى شعارها: <em>"فمعلوماتك اليوم تنمية للغد"</em>.
+      </div>
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="info-lbl">اسم المسابقة</div>
+          <div class="info-val">مسابقة المعرفة الإحصائية</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">الجهة المنظِّمة</div>
+          <div class="info-val">الهيئة العامة للإحصاء</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">الجهة الشريكة</div>
+          <div class="info-val">وزارة التعليم</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">المستوى</div>
+          <div class="info-val">وطني مؤسسي</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">نوع الوثيقة المُعطاة</div>
+          <div class="info-val">شهادة مشاركة رسمية</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">شعار المسابقة</div>
+          <div class="info-val">فمعلوماتك اليوم تنمية للغد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. التفاصيل -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-bar"></div>
+      <h2><span class="sec-num">ثانيًا &nbsp;|&nbsp;</span> التفاصيل التنفيذية</h2>
+    </div>
+    <div class="card">
+      <div class="info-grid" style="margin-bottom: 18px;">
+        <div class="info-cell">
+          <div class="info-lbl">اسم المدرسة</div>
+          <div class="info-val">المدرسة الابتدائية الثانية بالقاعدة الجوية</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">البرنامج المشارك</div>
+          <div class="info-val">المدرسة وبرنامج التوحد</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">مديرة المدرسة</div>
+          <div class="info-val">سميرة نشاء العصيمي</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">رائدة النشاط</div>
+          <div class="info-val">أفراح حسن الأسمري</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">العام الدراسي</div>
+          <div class="info-val">1448 هـ — الفصل الأول</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">إجمالي المشاركات</div>
+          <div class="info-val">238 طالبةً</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">الشهادات المُستلَمة</div>
+          <div class="info-val">238 شهادة مشاركة</div>
+        </div>
+        <div class="info-cell">
+          <div class="info-lbl">نسبة الإتمام</div>
+          <div class="info-val">100%</div>
+        </div>
+      </div>
+      <div class="callout callout-gold">
+        <strong>ملاحظة:</strong> حصلت جميع الطالبات المشاركات على شهادات مشاركة رسمية صادرة عن الهيئة العامة للإحصاء وموقَّعة منها، مما يعكس تنظيمًا مميّزًا وتطبيقًا كاملًا بنسبة 100% دون أي تسرّب أو غياب.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. نماذج -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-bar"></div>
+      <h2><span class="sec-num">ثالثًا &nbsp;|&nbsp;</span> نماذج من أسماء المشاركات</h2>
+    </div>
+    <div class="card">
+      <p style="font-size:12.5px; color:var(--fg-muted); margin-bottom:16px;">
+        عيّنة من أسماء الطالبات الحاصلات على شهادات المشاركة (من إجمالي 238 شهادة):
+      </p>
+      <div class="names-grid">
+        <div class="name-pill"><span class="name-pill-dot"></span>أجوان بندر العنزي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>أريام عبيد العتيبي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>أسمهان سلطان الروقي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>أفنان عبدالرازق الزهراني</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>آلاء بدر المفرجي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>الشيخة محمد العتيبي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>الماس حمود الحربي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>الماس وليد توفيق</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>إلى خالد الحازمي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>الهام عامر القرشي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>ورد فيصل الودعاني</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>ورد ماجد اللحياني</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>ورد محمد القرني</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>وريف بنت مقبول</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>وسن ظافر الحارثي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>وعد سعيد القحطاني</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>ولاء عبدالله آل غامدي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>ولاء مسفر الأكلبي</div>
+        <div class="name-pill"><span class="name-pill-dot"></span>يارا محمد الشمراني</div>
+        <div class="name-pill" style="background:var(--accent-lt); border-color:var(--accent); color:var(--accent);"><span class="name-pill-dot"></span>وأخريات (219 طالبةً)</div>
+      </div>
+      <p style="font-size:11.5px; color:var(--fg-soft); text-align:center; margin-top:14px;">
+        الكشف الكامل بجميع الأسماء مرفق بالشهادات الأصلية (238 صفحة)
+      </p>
+    </div>
+  </div>
+
+  <!-- 4. إنجازات -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-bar"></div>
+      <h2><span class="sec-num">رابعًا &nbsp;|&nbsp;</span> الإنجازات والمخرجات</h2>
+    </div>
+    <div class="card">
+      <div class="ach-list">
+        <div class="ach-item">
+          <div class="ach-icon">📊</div>
+          <div class="ach-content">
+            <div class="ach-title">مشاركة وطنية بامتياز</div>
+            <div class="ach-desc">تمكّنت المدرسة من تسجيل 238 طالبةً في مسابقة وطنية رسمية تشرف عليها الهيئة العامة للإحصاء، مما يعكس جهدًا تنسيقيًّا مثاليًّا وتفاعلًا حقيقيًّا مع المبادرات الحكومية.</div>
+          </div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon g">🏅</div>
+          <div class="ach-content">
+            <div class="ach-title">238 شهادة مشاركة رسمية</div>
+            <div class="ach-desc">حصلت كل طالبة على شهادة مشاركة رسمية موقَّعة من الهيئة العامة للإحصاء، وهو توثيق وطني معتمد يُضاف إلى سجلها الدراسي كمنجز حقيقي.</div>
+          </div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon">🎯</div>
+          <div class="ach-content">
+            <div class="ach-title">تنمية الوعي الإحصائي والثقافة الرقمية</div>
+            <div class="ach-desc">إكساب الطالبات مهارات التفكير الإحصائي وتحليل البيانات من خلال منافسة معرفية منظَّمة، تتوافق مع مستهدفات رؤية المملكة 2030 في تطوير الكفاءات الوطنية.</div>
+          </div>
+        </div>
+        <div class="ach-item">
+          <div class="ach-icon">🤝</div>
+          <div class="ach-content">
+            <div class="ach-title">ربط المدرسة بالمبادرات الوطنية</div>
+            <div class="ach-desc">إدراج المدرسة في خارطة الأنشطة الوطنية الكبرى، وتعزيز الشراكة بين المؤسسة التعليمية وجهات الدولة، وبناء سمعة المدرسة على المستوى التعليمي الإقليمي.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. توصيات -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-bar"></div>
+      <h2><span class="sec-num">خامسًا &nbsp;|&nbsp;</span> التوصيات</h2>
+    </div>
+    <div class="card">
+      <div class="rec-list">
+        <div class="rec-row">
+          <span class="rec-dot">1</span>
+          <span>الاستمرار في تسجيل المدرسة في مسابقات الهيئة العامة للإحصاء سنويًّا، مع توسيع قاعدة المشاركة لتشمل صفوف دراسية أوسع.</span>
+        </div>
+        <div class="rec-row">
+          <span class="rec-dot">2</span>
+          <span>إدراج شهادات المشاركة في ملفات الإنجاز الخاصة بالطالبات كوثائق داعمة رسمية في مسيرتهن الدراسية.</span>
+        </div>
+        <div class="rec-row">
+          <span class="rec-dot">3</span>
+          <span>إقامة حفل توزيع شهادات احتفالي بحضور إدارة المدرسة لتعزيز الدافعية وتكريم المشاركات أمام مجتمع المدرسة.</span>
+        </div>
+        <div class="rec-row">
+          <span class="rec-dot">4</span>
+          <span>توظيف مفاهيم الإحصاء والبيانات في الأنشطة الصفية واللاصفية لمحور الثقافة المعلوماتية طوال الفصلين الثاني والثالث.</span>
+        </div>
+        <div class="rec-row">
+          <span class="rec-dot">5</span>
+          <span>التنسيق المبكر مع الهيئة العامة للإحصاء لاستقطاب أنشطة ومحاضرات توعوية في إطار اليوم الإحصائي العالمي (أكتوبر).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>المدرسة الابتدائية الثانية بالقاعدة الجوية — الطائف</span>
+    <span style="color:var(--accent); font-weight:600">مسابقة المعرفة الإحصائية • 238 مشاركة</span>
+    <span>الفصل الأول — 1448 هـ</span>
+  </div>
+
+</div>
+
+</body></html>
